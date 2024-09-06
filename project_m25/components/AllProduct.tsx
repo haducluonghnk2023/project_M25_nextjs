@@ -1,4 +1,8 @@
-import { fetchProduct } from "@/services/all.service";
+import {
+  fetchProduct,
+  deleteProduct,
+  updateProduct,
+} from "../services/all.service";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -15,6 +19,8 @@ interface Product {
 
 const ProductManagement: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [isEditing, setIsEditing] = useState<number | null>(null);
+  const [editProductData, setEditProductData] = useState<Product | null>(null);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -29,12 +35,45 @@ const ProductManagement: React.FC = () => {
     getProduct();
   }, []);
 
+  const handleDelete = async (id: number) => {
+    const confirmDelete = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+    if (confirmDelete) {
+      try {
+        await deleteProduct(id); // Gọi API xóa sản phẩm
+        setProducts(products.filter((product) => product.id !== id)); // Cập nhật danh sách sản phẩm
+      } catch (error) {
+        console.error("Lỗi khi xóa sản phẩm:", error);
+      }
+    }
+  };
+
+  const handleEdit = (product: Product) => {
+    setIsEditing(product.id);
+    setEditProductData(product);
+  };
+
+  const handleSaveEdit = async () => {
+    if (editProductData) {
+      try {
+        await updateProduct(editProductData.id, editProductData); // Gọi API cập nhật sản phẩm
+        setProducts(
+          products.map((product) =>
+            product.id === editProductData.id ? editProductData : product
+          )
+        ); // Cập nhật danh sách sản phẩm
+        setIsEditing(null);
+        setEditProductData(null);
+      } catch (error) {
+        console.error("Lỗi khi sửa sản phẩm:", error);
+      }
+    }
+  };
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">Danh sách sản phẩm</h2>
 
-      <div className="mb-4"></div>
-      <table className="min-w-full table-auto border-collapse border border-gray-300">
+      <table className="min-w-full table-auto border-collapse border border-gray-300 mb-6">
         <thead>
           <tr>
             <th className="px-4 py-2 border">ID</th>
@@ -51,7 +90,22 @@ const ProductManagement: React.FC = () => {
           {products.map((product) => (
             <tr key={product.id}>
               <td className="px-4 py-2 border">{product.id}</td>
-              <td className="px-4 py-2 border">{product.product_name}</td>
+              <td className="px-4 py-2 border">
+                {isEditing === product.id ? (
+                  <input
+                    type="text"
+                    value={editProductData?.product_name || ""}
+                    onChange={(e) =>
+                      setEditProductData({
+                        ...editProductData,
+                        product_name: e.target.value,
+                      } as Product)
+                    }
+                  />
+                ) : (
+                  product.product_name
+                )}
+              </td>
               <td className="px-4 py-2 border">
                 <Image
                   src={product.image}
@@ -65,10 +119,25 @@ const ProductManagement: React.FC = () => {
               <td className="px-4 py-2 border">{product.unit_price}$</td>
               <td className="px-4 py-2 border">{product.date}</td>
               <td className="px-4 py-2 border flex justify-evenly">
-                <button className="w-[60px] h-[30px] bg-green-500 text-white rounded">
-                  Sửa
-                </button>
-                <button className="w-[60px] h-[30px] bg-red-600 text-white rounded">
+                {isEditing === product.id ? (
+                  <button
+                    className="w-[60px] h-[30px] bg-blue-500 text-white rounded"
+                    onClick={handleSaveEdit} // Gọi hàm lưu sửa
+                  >
+                    Lưu
+                  </button>
+                ) : (
+                  <button
+                    className="w-[60px] h-[30px] bg-green-500 text-white rounded"
+                    onClick={() => handleEdit(product)} // Gọi hàm sửa
+                  >
+                    Sửa
+                  </button>
+                )}
+                <button
+                  className="w-[60px] h-[30px] bg-red-600 text-white rounded"
+                  onClick={() => handleDelete(product.id)} // Gọi hàm xóa
+                >
                   Xóa
                 </button>
               </td>
@@ -76,6 +145,82 @@ const ProductManagement: React.FC = () => {
           ))}
         </tbody>
       </table>
+
+      {/* Form sửa sản phẩm */}
+      {isEditing !== null && editProductData && (
+        <div className="border border-gray-300 p-4 rounded">
+          <h3 className="text-xl font-bold mb-2">Chỉnh sửa sản phẩm</h3>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSaveEdit();
+            }}
+          >
+            <div className="mb-2">
+              <label>Tên sản phẩm:</label>
+              <input
+                type="text"
+                value={editProductData.product_name}
+                onChange={(e) =>
+                  setEditProductData({
+                    ...editProductData,
+                    product_name: e.target.value,
+                  } as Product)
+                }
+                className="border p-1 w-full"
+              />
+            </div>
+            <div className="mb-2">
+              <label>Mô tả:</label>
+              <input
+                type="text"
+                value={editProductData.decription}
+                onChange={(e) =>
+                  setEditProductData({
+                    ...editProductData,
+                    decription: e.target.value,
+                  } as Product)
+                }
+                className="border p-1 w-full"
+              />
+            </div>
+            <div className="mb-2">
+              <label>Danh mục:</label>
+              <input
+                type="text"
+                value={editProductData.category}
+                onChange={(e) =>
+                  setEditProductData({
+                    ...editProductData,
+                    category: e.target.value,
+                  } as Product)
+                }
+                className="border p-1 w-full"
+              />
+            </div>
+            <div className="mb-2">
+              <label>Giá:</label>
+              <input
+                type="number"
+                value={editProductData.unit_price}
+                onChange={(e) =>
+                  setEditProductData({
+                    ...editProductData,
+                    unit_price: Number(e.target.value),
+                  } as Product)
+                }
+                className="border p-1 w-full"
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white rounded px-4 py-2"
+            >
+              Lưu thay đổi
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
