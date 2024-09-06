@@ -1,0 +1,77 @@
+{
+  "user": [
+    {
+      "id": "1dsf",
+      "username": "ducluong",
+      "email": "ducluong@gmail.com",
+      "fullname": "haducluong",
+      "status": true,
+      "password": "$2a$10$aZTFHWkFVuiqPd25J3JWM./sYoh/rnD1yPAJWGK4oqnXjfH3vhCF.",
+      "role": "admin",
+      "avatar": "",
+      "phone": "01234567",
+      "adrees": "ha noi",
+      "created_at": "2022-01-01",
+      "updated_at": "2022-01-01"
+    }
+  ],
+  "category": [
+    {
+      "id": 2,
+      "category_name": "Category A",
+      "decription": "This is the description for category A.",
+      "status": "active"
+    },
+    {
+      "id": 8204968638,
+      "category_name": "Category B",
+      "decription": "This is the description for category B.",
+      "status": "active"
+    },
+    {
+      "id": "4fe9",
+      "category_name": "a",
+      "decription": "a",
+      "status": "active"
+    }
+  ],
+  "products": [
+    {
+      "id": 3,
+      "categoryId": 2,
+      "product_name": "Quỳnh Anh",
+      "decription": "Gầm cao thoáng mát",
+      "unit_price": "6.000.000",
+      "stock_quantity": 10,
+      "image": "https://top10tphcm.com/wp-content/uploads/2023/02/gai-dep-nhat-viet-nam-3.jpg",
+      "date": "2002-04-06",
+      "updated_at": "2022-01-01"
+    }
+  ],
+  "orders": [
+    {
+      "order_id": 4,
+      "serial_number": "",
+      "user_id": 1,
+      "oder_at": "",
+      "total_price": "",
+      "status": "",
+      "note": "",
+      "order_detail": [],
+      "receive_name": "",
+      "receive_adrees": "",
+      "receive_phone": "",
+      "created_at": "2022-01-01",
+      "updated_at": "2022-01-01"
+    }
+  ],
+  "order_details": [
+    {
+      "order_detail_id": 5,
+      "name": "",
+      "product_id": 3,
+      "oder_quantity": "",
+      "unit_price": ""
+    }
+  ]
+}

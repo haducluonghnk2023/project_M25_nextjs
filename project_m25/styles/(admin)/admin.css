@@ -1,0 +1,20 @@
+.ant-layout{
+    min-height: 100vh;
+}
+.ant-layout-sider{
+    min-width: 350px !important; 
+    max-width: 350px !important;
+    width: 350px !important;
+    flex: 0 0 350px !important;
+    background-color: rgb(50, 36, 120) !important;
+}
+.ant-layout-sider-collapsed{
+    flex: 0 0 80px !important;
+    min-width: 80px !important; 
+    max-width: 80px !important;
+    width: 80px !important;
+    background-color: rgb(218, 216, 229) !important;
+}
+.ant-menu{
+    background-color: rgb(42, 32, 103) !important;
+}
