@@ -98,3 +98,25 @@ export const updateProduct = async (id: number, updatedData: any) => {
     throw error;
   }
 };
+
+export const updateCategory = async (id: number, updatedData: any) => {
+  try {
+    const response = await axios.put(`${API_URL_CATEGORY}/${id}`, updatedData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+export const deleteCategory = async (id: number) => {
+  try {
+    const response = await axios.delete(`${API_URL_CATEGORY}/${id}`);
+    return response.data; 
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+

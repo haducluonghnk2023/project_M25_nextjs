@@ -3,7 +3,7 @@ module.exports = {
       remotePatterns: [
         {
           protocol: 'https',
-          hostname: 'top10tphcm.com',
+          hostname: 'firebasestorage.googleapis.com',
           port: '',
           pathname: '/**',
         },

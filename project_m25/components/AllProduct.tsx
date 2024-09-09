@@ -5,6 +5,9 @@ import {
 } from "../services/all.service";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "@/config/firebase";
+import axios from "axios";
 
 interface Product {
   id: number;
@@ -18,6 +21,7 @@ interface Product {
 }
 
 const ProductManagement: React.FC = () => {
+  const [image, setImage] = useState<any>();
   const [products, setProducts] = useState<Product[]>([]);
   const [isEditing, setIsEditing] = useState<number | null>(null);
   const [editProductData, setEditProductData] = useState<Product | null>(null);
@@ -55,18 +59,37 @@ const ProductManagement: React.FC = () => {
   const handleSaveEdit = async () => {
     if (editProductData) {
       try {
-        await updateProduct(editProductData.id, editProductData); // Gọi API cập nhật sản phẩm
+        await updateProduct(editProductData.id, editProductData);
         setProducts(
           products.map((product) =>
             product.id === editProductData.id ? editProductData : product
           )
-        ); // Cập nhật danh sách sản phẩm
+        );
         setIsEditing(null);
         setEditProductData(null);
       } catch (error) {
         console.error("Lỗi khi sửa sản phẩm:", error);
       }
     }
+  };
+
+  const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let valueImage: any = e.target.files?.[0];
+    console.log("111111111", valueImage);
+    setImage(valueImage);
+  };
+
+  const uploadImage = () => {
+    const imageRef = ref(storage, `images/${image}`);
+    uploadBytes(imageRef, image).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        console.log(1111, url);
+        const product = {
+          image: url,
+        };
+        axios.post(" http://localhost:8080/products", product);
+      });
+    });
   };
 
   return (
@@ -171,6 +194,15 @@ const ProductManagement: React.FC = () => {
               />
             </div>
             <div className="mb-2">
+              <label>Hình ảnh:</label>
+              <input
+                type="file"
+                // value={editProductData.image}
+                onChange={handleChangeImage}
+                className="border p-1 w-full"
+              />
+            </div>
+            <div className="mb-2">
               <label>Mô tả:</label>
               <input
                 type="text"
@@ -215,6 +247,7 @@ const ProductManagement: React.FC = () => {
             <button
               type="submit"
               className="bg-blue-500 text-white rounded px-4 py-2"
+              onClick={uploadImage}
             >
               Lưu thay đổi
             </button>
