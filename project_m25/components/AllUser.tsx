@@ -19,7 +19,8 @@ const CustomerManagement: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [usersPerPage] = useState<number>(3);
+  const [usersPerPage] = useState<number>(5);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
     const getUsers = async () => {
@@ -60,6 +61,18 @@ const CustomerManagement: React.FC = () => {
       );
     }
   }, [search, users]);
+
+  const handleSort = () => {
+    const sortedUsers = [...filteredUsers].sort((a, b) => {
+      if (sortOrder === "asc") {
+        return a.username.localeCompare(b.username);
+      } else {
+        return b.username.localeCompare(a.username);
+      }
+    });
+    setFilteredUsers(sortedUsers);
+    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+  };
 
   const handleLocked = async (id: string) => {
     const confirmed = window.confirm(
@@ -109,7 +122,6 @@ const CustomerManagement: React.FC = () => {
     }
   };
 
-  // Tính tổng số trang dựa trên số lượng người dùng hiện tại
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
 
   const handleNextPage = () => {
@@ -151,7 +163,12 @@ const CustomerManagement: React.FC = () => {
         <thead>
           <tr>
             <th className="px-4 py-2 border">ID</th>
-            <th className="px-4 py-2 border">Tên đăng nhập</th>
+            <th
+              className="px-4 py-2 border cursor-pointer"
+              onClick={handleSort}
+            >
+              Tên đăng nhập {sortOrder === "asc" ? "↑" : "↓"}
+            </th>
             <th className="px-4 py-2 border">Email</th>
             <th className="px-4 py-2 border">Trạng thái</th>
             <th className="px-4 py-2 border">Ngày tạo</th>

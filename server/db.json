@@ -64,41 +64,117 @@
   ],
   "products": [
     {
-      "id": "3",
-      "categoryId": 2,
-      "product_name": "gau truc buon ngu",
-      "decription": "hang moi",
+      "id": "1",
+      "categoryId": 1,
+      "product_name": "Gấu trúc buồn ngủ",
+      "decription": "Hàng mới",
       "unit_price": 500,
-      "category": "b",
+      "category": "Động vật nhồi bông",
       "stock_quantity": 10,
-      "image": "",
-      "date": "2002-04-06",
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fanh%20gau.jpg?alt=media&token=0da5bf0a-4f58-4f93-8517-5634b5332cee",
+      "date": "2022-04-06",
       "updated_at": "2022-01-01"
     },
     {
-      "id": "2869",
-      "product_name": "Hoa lá cành",
-      "decription": "dep",
-      "status": "",
-      "category": "a",
+      "id": "2",
+      "categoryId": 2,
+      "product_name": "Minh",
+      "decription": "Đẹp",
       "unit_price": 600,
-      "date": "2022-01-12",
-      "image": ""
+      "category": "Thời trang",
+      "stock_quantity": 5,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fchongu.jpg?alt=media&token=885acf26-b3cc-4eba-b26d-e026617e95d8",
+      "date": "2022-01-12"
     },
     {
-      "id": "faf8",
+      "id": "3",
+      "categoryId": 1,
       "product_name": "Con mèo",
       "decription": "15kg",
-      "status": "active",
-      "category": "Category A",
       "unit_price": 50,
-      "quantity": 60,
+      "category": "Động vật nhồi bông",
+      "stock_quantity": 60,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fmeobeo.jpg?alt=media&token=06faa978-9830-4c1f-aa6e-435ccda08099",
       "date": "2024-09-08",
-      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F%5Bobject%20File%5D?alt=media&token=a1038965-3429-415b-bc21-c5a5c38a66a8"
+      "status": "active"
     },
     {
-      "id": "d14b",
-      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F%5Bobject%20File%5D?alt=media&token=617397e3-e4a4-4927-911a-6762e622ea5a"
+      "id": "4",
+      "categoryId": 3,
+      "product_name": "Xe đạp",
+      "decription": "Xe đạp thể thao",
+      "unit_price": 2000,
+      "category": "Phương tiện",
+      "stock_quantity": 3,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fxe%20dap%20the%20thao.jpg?alt=media&token=0e4c033c-7b0d-4cbe-8c9b-b2d02a803eaf",
+      "date": "2023-05-10",
+      "updated_at": "2023-06-01"
+    },
+    {
+      "id": "5",
+      "categoryId": 4,
+      "product_name": "Máy tính xách tay",
+      "decription": "Laptop 16GB RAM",
+      "unit_price": 1500,
+      "category": "Điện tử",
+      "stock_quantity": 8,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Flaptop%2016gb.jpg?alt=media&token=ddc58759-d11d-4d7c-ab05-b9be03768905",
+      "date": "2023-04-15"
+    },
+    {
+      "id": "6",
+      "categoryId": 1,
+      "product_name": "Chó bông",
+      "decription": "Chó bông dễ thương",
+      "unit_price": 100,
+      "category": "Động vật nhồi bông",
+      "stock_quantity": 20,
+      "image": "",
+      "date": "2023-06-01"
+    },
+    {
+      "id": "7",
+      "categoryId": 2,
+      "product_name": "Áo khoác",
+      "decription": "Áo khoác mùa đông",
+      "unit_price": 300,
+      "category": "Thời trang",
+      "stock_quantity": 15,
+      "image": "",
+      "date": "2022-11-05"
+    },
+    {
+      "id": "8",
+      "categoryId": 5,
+      "product_name": "Điện thoại",
+      "decription": "Smartphone 5G",
+      "unit_price": 800,
+      "category": "Điện tử",
+      "stock_quantity": 12,
+      "image": "",
+      "date": "2022-12-01"
+    },
+    {
+      "id": "9",
+      "categoryId": 3,
+      "product_name": "Mũ bảo hiểm",
+      "decription": "Mũ bảo hiểm xe máy",
+      "unit_price": 50,
+      "category": "Phương tiện",
+      "stock_quantity": 30,
+      "image": "",
+      "date": "2023-03-01"
+    },
+    {
+      "id": "10",
+      "categoryId": 4,
+      "product_name": "Chuột máy tính",
+      "decription": "Chuột không dây",
+      "unit_price": 20,
+      "category": "Điện tử",
+      "stock_quantity": 25,
+      "image": "",
+      "date": "2023-01-10"
     }
   ],
   "orders": [
