@@ -20,21 +20,24 @@ const MainContent: React.FC = () => {
   const [showForm, setShowForm] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
+  // Thêm trạng thái cho thông tin nhận hàng
+  const [receiveName, setReceiveName] = useState<string>("");
+  const [receiveAddress, setReceiveAddress] = useState<string>("");
+  const [receivePhone, setReceivePhone] = useState<string>("");
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get("http://localhost:8080/products");
-        // Lọc sản phẩm có category là "cơ phá predator"
         const filteredProducts = response.data.filter(
           (prod: Product) =>
             prod.category === "Cơ phá Predator" ||
             prod.category === "Găng tay chơi bi-a"
         );
-        // console.log(response.data);
 
         setProducts(filteredProducts);
       } catch (error) {
-        console.error("loi lay data san pham:", error);
+        console.error("Error fetching products:", error);
       } finally {
         setLoading(false);
       }
@@ -43,19 +46,30 @@ const MainContent: React.FC = () => {
     fetchProducts();
   }, []);
 
-  const handleAddToCart = async (product: Product) => {
+  const handleAddToCart = (product: Product) => {
     setSelectedProduct(product);
     setShowForm(true);
   };
+
   const handleCloseForm = () => {
     setShowForm(false);
     setSelectedProduct(null);
+    setReceiveName(""); // Reset thông tin
+    setReceiveAddress(""); // Reset thông tin
+    setReceivePhone(""); // Reset thông tin
   };
 
   const handleConfirmAddToCart = async () => {
     if (!selectedProduct) return;
 
     const userId = localStorage.getItem("adminToken");
+
+    if (!userId) {
+      toast.error("Bạn cần đăng nhập để mua hàng.");
+      handleCloseForm();
+      return;
+    }
+
     const orderData = {
       user_id: userId,
       order_at: new Date().toISOString(),
@@ -69,9 +83,9 @@ const MainContent: React.FC = () => {
           quantity: 1,
         },
       ],
-      receive_name: "",
-      receive_address: "",
-      receive_phone: "",
+      receive_name: receiveName,
+      receive_address: receiveAddress,
+      receive_phone: receivePhone,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     };
@@ -124,6 +138,38 @@ const MainContent: React.FC = () => {
             <h2 className="text-lg font-bold mb-4">Thêm vào giỏ hàng</h2>
             <p>{selectedProduct.product_name}</p>
             <p>Giá: ${selectedProduct.unit_price}</p>
+            <img
+              src={selectedProduct.image}
+              alt={selectedProduct.product_name}
+              className="w-full h-40 object-cover mb-4"
+            />
+            <div className="mt-4">
+              <label className="block mb-1">Tên người nhận:</label>
+              <input
+                type="text"
+                value={receiveName}
+                onChange={(e) => setReceiveName(e.target.value)}
+                className="border rounded w-full p-2"
+              />
+            </div>
+            <div className="mt-4">
+              <label className="block mb-1">Địa chỉ nhận:</label>
+              <input
+                type="text"
+                value={receiveAddress}
+                onChange={(e) => setReceiveAddress(e.target.value)}
+                className="border rounded w-full p-2"
+              />
+            </div>
+            <div className="mt-4">
+              <label className="block mb-1">Số điện thoại:</label>
+              <input
+                type="text"
+                value={receivePhone}
+                onChange={(e) => setReceivePhone(e.target.value)}
+                className="border rounded w-full p-2"
+              />
+            </div>
             <div className="flex justify-between mt-4">
               <button
                 className="mt-4 bg-red-500 text-white py-2 px-4 rounded"
@@ -141,6 +187,7 @@ const MainContent: React.FC = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

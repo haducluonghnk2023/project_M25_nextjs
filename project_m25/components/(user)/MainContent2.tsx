@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { formatCurrencyUSD } from "@/public";
 
 type Product = {
   id: any;
@@ -44,6 +45,11 @@ const MainContent2: React.FC = () => {
   const [showForm, setShowForm] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
+  // Thêm trạng thái cho thông tin nhận hàng
+  const [receiveName, setReceiveName] = useState<string>("");
+  const [receiveAddress, setReceiveAddress] = useState<string>("");
+  const [receivePhone, setReceivePhone] = useState<string>("");
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -78,6 +84,9 @@ const MainContent2: React.FC = () => {
   const handleCloseForm = () => {
     setShowForm(false);
     setSelectedProduct(null);
+    setReceiveName(""); // Reset thông tin
+    setReceiveAddress(""); // Reset thông tin
+    setReceivePhone(""); // Reset thông tin
   };
 
   const handleConfirmAddToCart = async () => {
@@ -91,17 +100,25 @@ const MainContent2: React.FC = () => {
       return;
     }
 
+    const cleanPrice = selectedProduct.unit_price.replace(/[^0-9.]/g, "");
+    const unitPrice = parseFloat(cleanPrice);
+
+    if (isNaN(unitPrice)) {
+      toast.error("Giá sản phẩm không hợp lệ.");
+      return;
+    }
+
     let orderData: Order = {
       id: Math.ceil(Math.random() * 999999).toString(),
       user_id: userId,
       order_at: new Date().toISOString(),
-      total_price: "0.00", // Khởi tạo giá tổng
+      total_price: "0.00",
       status: true,
       note: "",
       order_detail: [],
-      receive_name: "",
-      receive_address: "",
-      receive_phone: "",
+      receive_name: receiveName, // Thêm thông tin nhận hàng
+      receive_address: receiveAddress, // Thêm thông tin nhận hàng
+      receive_phone: receivePhone, // Thêm thông tin nhận hàng
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     };
@@ -111,8 +128,6 @@ const MainContent2: React.FC = () => {
         `http://localhost:8080/orders?user_id=${userId}`
       );
       const existingOrder = response.data[0];
-
-      const unitPrice = parseFloat(selectedProduct.unit_price);
 
       if (existingOrder) {
         const existingItemIndex = existingOrder.order_detail.findIndex(
@@ -137,11 +152,16 @@ const MainContent2: React.FC = () => {
         existingOrder.total_price = existingOrder.order_detail
           .reduce(
             (total: number, item: OrderDetail) =>
-              total + parseFloat(item.unitPrice) * item.quantity,
+              total +
+              parseFloat(item.unitPrice.replace(/[^0-9.]/g, "")) *
+                item.quantity,
             0
           )
-          .toFixed(2) // Định dạng giá tổng khi hiển thị
-          .replace(".", ","); // Thay đổi dấu chấm thành dấu phẩy cho định dạng Việt Nam
+          .toFixed(2);
+
+        existingOrder.total_price = formatCurrencyUSD(
+          parseFloat(existingOrder.total_price)
+        );
 
         await axios.put(
           `http://localhost:8080/orders/${existingOrder.id}`,
@@ -156,7 +176,11 @@ const MainContent2: React.FC = () => {
           image: selectedProduct.image,
         };
         orderData.order_detail.push(newCartItem);
-        orderData.total_price = unitPrice.toFixed(2).replace(".", ","); // Định dạng giá
+
+        orderData.total_price = unitPrice.toFixed(2); // Định dạng giá thành chuỗi có 2 chữ số
+        orderData.total_price = formatCurrencyUSD(
+          parseFloat(orderData.total_price)
+        ); // Định dạng thành USD
 
         await axios.post("http://localhost:8080/orders", orderData);
         toast.success("Đã thêm sản phẩm vào giỏ hàng!");
@@ -187,10 +211,16 @@ const MainContent2: React.FC = () => {
                   className="w-full h-40 object-cover"
                 />
                 <h3 className="font-bold">{product.product_name}</h3>
-                <span>
-                  From: $
-                  {parseFloat(product.unit_price).toFixed(2).replace(".", ",")}
-                </span>
+                {(() => {
+                  const cleanPrice = product.unit_price.replace(/[^0-9.]/g, ""); // Làm sạch giá
+                  const unitPrice = parseFloat(cleanPrice); // Chuyển đổi thành số
+
+                  if (isNaN(unitPrice)) {
+                    return <span>Giá không hợp lệ</span>; // Hiển thị thông báo lỗi
+                  }
+
+                  return <span>From: {formatCurrencyUSD(unitPrice)}</span>; // Sử dụng hàm định dạng tiền
+                })()}
                 <button
                   className="bg-yellow-500 text-black mt-auto rounded"
                   onClick={() => handleAddToCart(product)}
@@ -211,16 +241,44 @@ const MainContent2: React.FC = () => {
             <h2 className="text-lg font-bold mb-4">Thêm vào giỏ hàng</h2>
             <p>{selectedProduct.product_name}</p>
             <p>
-              Giá: $
-              {parseFloat(selectedProduct.unit_price)
-                .toFixed(2)
-                .replace(".", ",")}
+              Giá:{" "}
+              {formatCurrencyUSD(
+                parseFloat(selectedProduct.unit_price.replace(/[^0-9.]/g, ""))
+              )}
             </p>
             <img
               src={selectedProduct.image}
               alt={selectedProduct.product_name}
               className="w-full h-40 object-cover mb-4"
             />
+
+            <div className="mt-4">
+              <label className="block mb-1">Tên người nhận:</label>
+              <input
+                type="text"
+                value={receiveName}
+                onChange={(e) => setReceiveName(e.target.value)}
+                className="border rounded w-full p-2"
+              />
+            </div>
+            <div className="mt-4">
+              <label className="block mb-1">Địa chỉ nhận:</label>
+              <input
+                type="text"
+                value={receiveAddress}
+                onChange={(e) => setReceiveAddress(e.target.value)}
+                className="border rounded w-full p-2"
+              />
+            </div>
+            <div className="mt-4">
+              <label className="block mb-1">Số điện thoại:</label>
+              <input
+                type="text"
+                value={receivePhone}
+                onChange={(e) => setReceivePhone(e.target.value)}
+                className="border rounded w-full p-2"
+              />
+            </div>
             <div className="flex justify-between mt-4">
               <button
                 className="mt-4 bg-red-500 text-white py-2 px-4 rounded"

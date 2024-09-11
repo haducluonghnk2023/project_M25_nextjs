@@ -21,6 +21,17 @@
       "password": "$2a$10$aKOFFE0H0ppDly9Cz5FM4OqxDcDjfTjUo4AgVnJFyG4J9nHz/vFFy",
       "role": "user",
       "status": true
+    },
+    {
+      "id": "2321",
+      "username": "phuc",
+      "email": "nvp@gmail.com",
+      "fullname": "Nguyễn Văn Phúc",
+      "phone": "0123456789",
+      "addrees": "Thanh Hóa",
+      "password": "$2a$10$MsWnjTG92T7fOGJa31VE7eKCaqqV9poxkbHKo24EcK5sI79.D8PhO",
+      "role": "user",
+      "status": true
     }
   ],
   "category": [
@@ -51,7 +62,7 @@
       "unit_price": "29.00",
       "category": "Găng tay chơi bi-a",
       "stock_quantity": 5,
-      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F24-pred-glove-lg-bridge-1000x1000.jpg?alt=media&token=8295d3ae-e86e-4c57-a01e-5935dcd011af",
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F24-pred-glove-lg-bridge-1000x1000.jpg?alt=media&token=52619f6c-f185-4b76-868d-6ba1491eaad5",
       "date": "2023-01-10"
     },
     {
@@ -194,7 +205,7 @@
       "id": "200072",
       "user_id": "6c8b",
       "order_at": "2024-09-11T03:14:52.905Z",
-      "total_price": "7,00",
+      "total_price": "$17,592.00",
       "status": true,
       "note": "",
       "order_detail": [
@@ -202,7 +213,7 @@
           "productId": "12",
           "productName": "Cơ bida Predator Blak4 2 có khớp nối xuyên tâm",
           "unitPrice": "2,199.00",
-          "quantity": 2,
+          "quantity": 5,
           "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-2-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=3a9984c8-af56-4ad0-bfa6-93f493c85763"
         },
         {
@@ -216,7 +227,7 @@
           "productId": "13",
           "productName": "Cơ bida Predator Blak4 3 có khớp nối xuyên tâm",
           "unitPrice": "2,299.00",
-          "quantity": 1,
+          "quantity": 2,
           "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-3-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=0d396546-1f91-40f1-b8fc-246720933a0b"
         }
       ],
@@ -225,6 +236,35 @@
       "receive_phone": "",
       "created_at": "2024-09-11T03:14:52.905Z",
       "updated_at": "2024-09-11T03:14:52.905Z"
+    },
+    {
+      "id": "557498",
+      "user_id": "2321",
+      "order_at": "2024-09-11T04:56:59.626Z",
+      "total_price": "$4,498.00",
+      "status": true,
+      "note": "",
+      "order_detail": [
+        {
+          "productId": "12",
+          "productName": "Cơ bida Predator Blak4 2 có khớp nối xuyên tâm",
+          "unitPrice": "2,199.00",
+          "quantity": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-2-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=3a9984c8-af56-4ad0-bfa6-93f493c85763"
+        },
+        {
+          "productId": "13",
+          "productName": "Cơ bida Predator Blak4 3 có khớp nối xuyên tâm",
+          "unitPrice": "2,299.00",
+          "quantity": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-3-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=0d396546-1f91-40f1-b8fc-246720933a0b"
+        }
+      ],
+      "receive_name": "phuc",
+      "receive_address": "ha noi",
+      "receive_phone": "123456789",
+      "created_at": "2024-09-11T04:56:59.626Z",
+      "updated_at": "2024-09-11T04:56:59.626Z"
     }
   ],
   "payments": [
@@ -246,6 +286,13 @@
       "id": "49d9",
       "orderId": "200072",
       "totalAmount": "5.00",
+      "userId": "6c8b",
+      "success": "Thành công"
+    },
+    {
+      "id": "1785",
+      "orderId": "200072",
+      "totalAmount": "7,00",
       "userId": "6c8b",
       "success": "Thành công"
     }
