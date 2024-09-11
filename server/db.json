@@ -1,208 +1,253 @@
 {
   "user": [
     {
-      "id": "1dsf",
-      "username": "ducluong",
-      "email": "admin@gmail.com",
-      "fullname": "haducluong",
-      "status": true,
-      "password": "$2a$10$aZTFHWkFVuiqPd25J3JWM./sYoh/rnD1yPAJWGK4oqnXjfH3vhCF.",
-      "role": "admin",
-      "avatar": "",
-      "phone": "01234567",
-      "addrees": "ha noi",
-      "created_at": "2022-01-01",
-      "updated_at": "2022-01-01",
-      "is_locked": false
+      "id": "fc6d",
+      "username": "duc luong",
+      "email": "haducluongdz@gmail.com",
+      "fullname": "hạ đức lương",
+      "phone": "0392096054",
+      "addrees": "Phú Thọ",
+      "password": "$2a$10$LTAp2OHPIO6TmBwke9TPEO9EakS0w0MnBkXFok8uWjUJV3vteqOCS",
+      "role": "user",
+      "status": true
     },
     {
-      "id": "2588",
+      "id": "6c8b",
+      "username": "minh",
       "email": "vminh@gmail.com",
-      "username": "pham van minh",
-      "password": "$2a$10$rmt.o3HB3JDGMq1R5OtvxO.PAbgy8iOUmq3g45IpMKQl2dGNRwKi6",
-      "phone": "0392096055",
-      "address": "thanh hóa",
-      "role": "user",
-      "status": true,
-      "avatar": "",
-      "created_at": "2024-09-06T14:19:35.452Z",
-      "is_locked": false
-    },
-    {
-      "id": "0f3d",
-      "email": "nva@gmail.com",
-      "username": "Nguyễn Văn A",
-      "password": "$2a$10$wRco7.TqMynWlMHHBTD5K.REMZ2PcggI.8YAO3W/QpFtlqigi9n0S",
+      "fullname": "pham van minh",
       "phone": "0123456789",
-      "address": "Hải Phòng",
+      "addrees": "Phú Thọ",
+      "password": "$2a$10$aKOFFE0H0ppDly9Cz5FM4OqxDcDjfTjUo4AgVnJFyG4J9nHz/vFFy",
       "role": "user",
-      "status": true,
-      "avatar": "",
-      "created_at": "2024-09-08T16:12:29.150Z",
-      "is_locked": false
+      "status": true
     }
   ],
   "category": [
     {
       "id": "2",
-      "category_name": "Category  A",
+      "category_name": "Cơ đánh Predator",
       "decription": "This is the description for category A.",
       "status": "active"
     },
     {
       "id": "8204968638",
-      "category_name": "Category B",
+      "category_name": "Cơ phá Predator",
       "decription": "This is the description for category B.",
       "status": "active"
     },
     {
       "id": "1561",
-      "category_name": "Category C",
+      "category_name": "Predator SP2 REVO ",
       "decription": "This is the description for category C.",
       "status": "active"
     }
   ],
   "products": [
     {
-      "id": "1",
-      "categoryId": 1,
-      "product_name": "Gấu trúc buồn ngủ",
-      "decription": "Hàng mới",
-      "unit_price": 500,
-      "category": "Động vật nhồi bông",
-      "stock_quantity": 10,
-      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fanh%20gau.jpg?alt=media&token=0da5bf0a-4f58-4f93-8517-5634b5332cee",
-      "date": "2022-04-06",
-      "updated_at": "2022-01-01"
-    },
-    {
-      "id": "2",
-      "categoryId": 2,
-      "product_name": "Minh",
-      "decription": "Đẹp",
-      "unit_price": 600,
-      "category": "Thời trang",
-      "stock_quantity": 5,
-      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fchongu.jpg?alt=media&token=885acf26-b3cc-4eba-b26d-e026617e95d8",
-      "date": "2022-01-12"
-    },
-    {
-      "id": "3",
-      "categoryId": 1,
-      "product_name": "Con mèo",
-      "decription": "15kg",
-      "unit_price": 50,
-      "category": "Động vật nhồi bông",
-      "stock_quantity": 60,
-      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fmeobeo.jpg?alt=media&token=06faa978-9830-4c1f-aa6e-435ccda08099",
-      "date": "2024-09-08",
-      "status": "active"
-    },
-    {
-      "id": "4",
-      "categoryId": 3,
-      "product_name": "Xe đạp",
-      "decription": "Xe đạp thể thao",
-      "unit_price": 2000,
-      "category": "Phương tiện",
-      "stock_quantity": 3,
-      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fxe%20dap%20the%20thao.jpg?alt=media&token=0e4c033c-7b0d-4cbe-8c9b-b2d02a803eaf",
-      "date": "2023-05-10",
-      "updated_at": "2023-06-01"
-    },
-    {
-      "id": "5",
-      "categoryId": 4,
-      "product_name": "Máy tính xách tay",
-      "decription": "Laptop 16GB RAM",
-      "unit_price": 1500,
-      "category": "Điện tử",
-      "stock_quantity": 8,
-      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Flaptop%2016gb.jpg?alt=media&token=ddc58759-d11d-4d7c-ab05-b9be03768905",
-      "date": "2023-04-15"
-    },
-    {
       "id": "6",
-      "categoryId": 1,
-      "product_name": "Chó bông",
-      "decription": "Chó bông dễ thương",
-      "unit_price": 100,
-      "category": "Động vật nhồi bông",
+      "product_name": "Predator Second Skin Black & Gold Billiard Glove - 30 Anniversary Edition",
+      "decription": "Phiên bản giới hạn của găng tay kỷ niệm 30 năm độc quyền của chúng tôi. Tự tin hơn và nhất quán hơn sẽ chuyển thành kết quả trên bàn. Găng tay bi-a cao cấp SecondSkin của Predator có vạch chia 30 điểm đồng thời cung cấp cho người chơi ở mọi cấp độ một bề mặt cực kỳ mịn và ít ma sát để tăng độ chính xác và nhất quán - bất kể điều kiện hay cú đánh. Khi người chơi có cú đánh mượt mà và ổn định mỗi khi vào bàn, họ có thể tập trung vào điều quan trọng nhất - chiến thắng",
+      "unit_price": "29.00",
+      "category": "Găng tay chơi bi-a",
+      "stock_quantity": 5,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F24-pred-glove-lg-bridge-1000x1000.jpg?alt=media&token=8295d3ae-e86e-4c57-a01e-5935dcd011af",
+      "date": "2023-01-10"
+    },
+    {
+      "id": "10",
+      "product_name": "Cơ Predator BK Rush Gold Break - Không quấn",
+      "decription": "Đánh trúng vàng với cơ bẻ hiệu suất cao BK-Rush Gold phiên bản giới hạn hoàn toàn mới. Predator BK-Rush là cơ bẻ mạnh nhất của chúng tôi và là cơ bẻ số 1 trong Pro tour. Với công nghệ BK bốn mảnh hợp nhất, báng cơ được cân bằng để tạo ra nhiều lực hơn với ít lực hơn, và đi kèm với trục bẻ sợi carbon composite REVO BK-R được tối ưu hóa để truyền nhiều lực thô hơn với độ chính xác của một trục chơi. Một cú bẻ vàng được chứng nhận chống lại mọi đối thủ.",
+      "unit_price": "804.00",
+      "category": "Cơ phá Predator",
       "stock_quantity": 20,
-      "image": "",
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F23-pred-bkrush-gold-1000x1000--w.jpg?alt=media&token=c28eaca4-0cc2-44ac-87e6-1ecf8208ab8d",
       "date": "2023-06-01"
     },
     {
       "id": "7",
-      "categoryId": 2,
-      "product_name": "Áo khoác",
-      "decription": "Áo khoác mùa đông",
-      "unit_price": 300,
-      "category": "Thời trang",
+      "product_name": "Cơ Predator BK Rush Gold Break - Gói thể thao",
+      "decription": "Đánh trúng vàng với cơ bẻ hiệu suất cao BK-Rush Gold phiên bản giới hạn hoàn toàn mới. Predator BK-Rush là cơ bẻ mạnh nhất của chúng tôi và là cơ bẻ số 1 trong Pro tour. Với công nghệ BK bốn mảnh hợp nhất, báng cơ được cân bằng để tạo ra nhiều lực hơn với ít lực hơn và đi kèm với trục bẻ sợi carbon composite REVO BK-R được tối ưu hóa để truyền nhiều lực thô hơn với độ chính xác của một trục chơi. Một cú bẻ vàng được chứng nhận chống lại mọi đối thủ.",
+      "unit_price": "854.00",
+      "category": "Cơ phá Predator",
       "stock_quantity": 15,
-      "image": "",
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F23-pred-bkrush-gold-1000x1000--w.jpg?alt=media&token=c28eaca4-0cc2-44ac-87e6-1ecf8208ab8d",
       "date": "2022-11-05"
     },
     {
       "id": "8",
-      "categoryId": 5,
-      "product_name": "Điện thoại",
-      "decription": "Smartphone 5G",
-      "unit_price": 800,
-      "category": "Điện tử",
+      "product_name": "Cơ Predator Air Rush Gold Jump - Không quấn",
+      "decription": "Air Rush là sản phẩm tối ưu về sức mạnh và độ chính xác khi nhảy. Với tay cầm mở rộng sáng tạo, sản phẩm giúp bạn dễ dàng bay và hạ cánh chính xác. Bằng cách cải thiện khả năng thực hiện và giúp bạn nhảy hiệu quả hơn, Air Rush giúp bạn tăng tỷ lệ thành công trong những tình huống khó khăn, khó thoát ra và cuối cùng là tăng tính linh hoạt của bạn trên sân. Kết hợp với trục sợi carbon Air REVO của chúng tôi, Air Rush được thiết kế và phát triển để thoát khỏi những vị trí khó khăn một cách dễ dàng, phong cách và thoải mái hơn.",
+      "unit_price": "590.00",
+      "category": "Cơ phá Predator",
       "stock_quantity": 12,
-      "image": "",
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-airrush-gold-jump-cue-nowrap-3segment-1000x1000-lowres.jpg?alt=media&token=ed533a33-5a4c-4c56-a12e-76ad92c2a7d6",
       "date": "2022-12-01"
     },
     {
       "id": "9",
-      "categoryId": 3,
-      "product_name": "Mũ bảo hiểm",
-      "decription": "Mũ bảo hiểm xe máy",
-      "unit_price": 50,
-      "category": "Phương tiện",
+      "product_name": "Cơ Predator Air Rush Gold Jump - Bọc thể thao",
+      "decription": "Air Rush là sản phẩm tối ưu về sức mạnh và độ chính xác khi nhảy. Với tay cầm mở rộng sáng tạo, sản phẩm giúp bạn dễ dàng bay và hạ cánh chính xác. Bằng cách cải thiện khả năng thực hiện và giúp bạn nhảy hiệu quả hơn, Air Rush giúp bạn tăng tỷ lệ thành công trong những tình huống khó khăn, khó thoát ra và cuối cùng là tăng tính linh hoạt của bạn trên sân. Kết hợp với trục sợi carbon Air REVO của chúng tôi, Air Rush được thiết kế và phát triển để thoát khỏi những vị trí khó khăn một cách dễ dàng, phong cách và thoải mái hơn.",
+      "unit_price": "659.00",
+      "category": "Cơ phá Predator",
       "stock_quantity": 30,
-      "image": "",
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-5-pool-cue-thumb-1000x1000_1_1.jpg?alt=media&token=9b872ce9-a0d9-425b-87a4-96c935e78e36",
       "date": "2023-03-01"
     },
     {
-      "id": "10",
-      "categoryId": 4,
-      "product_name": "Chuột máy tính",
-      "decription": "Chuột không dây",
-      "unit_price": 20,
-      "category": "Điện tử",
-      "stock_quantity": 25,
-      "image": "",
-      "date": "2023-01-10"
+      "id": "11",
+      "product_name": "Cơ bida Predator Blak4 1 có khớp nối xuyên tâm",
+      "decription": "Được chế tác chuyên nghiệp và thiết kế tỉ mỉ, sản phẩm kinh điển tuyệt đỉnh này có hợp kim bạc được gia công tinh xảo kết hợp với độ ấm phong phú của gỗ Curly Maple. Mỗi cơ bida Blak4 đều đi kèm với trục 314-3, Z-3, Vantage, REVO 12.4 hoặc REVO 12.9 có độ lệch thấp nổi tiếng thế giới của chúng tôi.",
+      "unit_price": "1,999.00",
+      "category": "Cơ đánh Predator",
+      "stock_quantity": 30,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-1-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=aef65dba-1b16-460e-b047-5614cedeb0c0",
+      "date": "2023-03-01"
+    },
+    {
+      "id": "12",
+      "product_name": "Cơ bida Predator Blak4 2 có khớp nối xuyên tâm",
+      "decription": "Được chế tác chuyên nghiệp và thiết kế tỉ mỉ, sản phẩm kinh điển tuyệt đỉnh này có hợp kim bạc được gia công tinh xảo kết hợp với độ ấm phong phú của gỗ Curly Maple. Mỗi cơ bida Blak4 đều đi kèm với trục 314-3, Z-3, Vantage, REVO 12.4 hoặc REVO 12.9 có độ lệch thấp nổi tiếng thế giới của chúng tôi.",
+      "unit_price": "2,199.00",
+      "category": "Cơ đánh Predator",
+      "stock_quantity": 30,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-2-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=3a9984c8-af56-4ad0-bfa6-93f493c85763",
+      "date": "2023-03-01"
+    },
+    {
+      "id": "13",
+      "product_name": "Cơ bida Predator Blak4 3 có khớp nối xuyên tâm",
+      "decription": "Được chế tác chuyên nghiệp và thiết kế tỉ mỉ, sản phẩm kinh điển tuyệt đỉnh này có hợp kim bạc được gia công tinh xảo kết hợp với độ ấm phong phú của gỗ Curly Maple. Mỗi cơ bida Blak4 đều đi kèm với trục 314-3, Z-3, Vantage, REVO 12.4 hoặc REVO 12.9 có độ lệch thấp nổi tiếng thế giới của chúng tôi.",
+      "unit_price": "2,299.00",
+      "category": "Cơ đánh Predator",
+      "stock_quantity": 30,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-3-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=0d396546-1f91-40f1-b8fc-246720933a0b",
+      "date": "2023-03-01"
+    },
+    {
+      "id": "14",
+      "product_name": "Cơ bida Predator Blak4 4 với khớp nối xuyên tâm",
+      "decription": "Được chế tác chuyên nghiệp và thiết kế tỉ mỉ, sản phẩm kinh điển tuyệt đỉnh này có hợp kim bạc được gia công tinh xảo kết hợp với độ ấm phong phú của gỗ Curly Maple. Mỗi cơ bida Blak4 đều đi kèm với trục 314-3, Z-3, Vantage, REVO 12.4 hoặc REVO 12.9 có độ lệch thấp nổi tiếng thế giới của chúng tôi.",
+      "unit_price": "2,459.00",
+      "category": "Cơ đánh Predator",
+      "stock_quantity": 30,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-4-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=b4d1e215-957d-49fe-91b6-d32e1dc541bd",
+      "date": "2023-03-01"
+    },
+    {
+      "id": "15",
+      "categoryId": 3,
+      "product_name": "Cơ bida Predator Blak4 5 có khớp nối xuyên tâm",
+      "decription": "Được chế tác chuyên nghiệp và thiết kế tỉ mỉ, sản phẩm kinh điển tuyệt đỉnh này có hợp kim bạc được gia công tinh xảo kết hợp với độ ấm phong phú của gỗ Curly Maple. Mỗi cơ bida Blak4 đều đi kèm với trục 314-3, Z-3, Vantage, REVO 12.4 hoặc REVO 12.9 có độ lệch thấp nổi tiếng thế giới của chúng tôi.",
+      "unit_price": "2,599.00",
+      "category": "Cơ đánh Predator",
+      "stock_quantity": 30,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-5-pool-cue-thumb-1000x1000_1_1.jpg?alt=media&token=e448e88c-0cc4-4968-9a59-c29245d9b5f6",
+      "date": "2023-03-01"
+    },
+    {
+      "id": "16",
+      "categoryId": 3,
+      "product_name": "Predator SP2 REVO Adventura 2 Pool Cue",
+      "decription": "Giới thiệu cơ Predator SP2 Adventura có cấu trúc C4+. Mỗi SP2 sản xuất giới hạn đều được thiết kế và phát triển để giúp bạn giành ưu thế trong cuộc thi. Nâng cao lối chơi của bạn bằng một cơ có độ bền như trò chơi của bạn. Mật độ gỗ Apitong góp phần tạo nên cảm giác chắc chắn, ổn định trong khi chơi, giúp bạn có lợi thế hơn trong cuộc thi. Mỗi cơ đều thể hiện cá tính riêng với các hoa văn vân gỗ độc đáo.",
+      "unit_price": "1,199.00",
+      "category": "Predator SP2 REVO",
+      "stock_quantity": 30,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fcue-thumbs-1000x1000-clight-2.jpg?alt=media&token=afbdbbeb-b75c-43e5-a099-00d969d379ef",
+      "date": "2023-03-01"
+    },
+    {
+      "id": "17",
+      "categoryId": 3,
+      "product_name": "Predator SP2 REVO Adventura 1 Pool Cue",
+      "decription": "Giới thiệu cơ Predator SP2 Adventura có cấu trúc C4+. Mỗi SP2 sản xuất giới hạn đều được thiết kế và phát triển để giúp bạn giành ưu thế trong cuộc thi. Nâng cao lối chơi của bạn bằng một cơ có độ bền như trò chơi của bạn. Mật độ gỗ Apitong góp phần tạo nên cảm giác chắc chắn, ổn định trong khi chơi, giúp bạn có lợi thế hơn trong cuộc thi. Mỗi cơ đều thể hiện cá tính riêng với các hoa văn vân gỗ độc đáo.",
+      "unit_price": "1,599.00",
+      "category": "Predator SP2 REVO",
+      "stock_quantity": 30,
+      "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fcue-thumbs-1000x1000-clight_1_4.jpg?alt=media&token=2b2cf807-c1f6-4837-83ee-918ec7e0c686",
+      "date": "2023-03-01"
     }
   ],
   "orders": [
     {
-      "order_id": 4,
-      "serial_number": "",
-      "user_id": 1,
-      "oder_at": "",
-      "total_price": "",
-      "status": "",
-      "note": "",
-      "order_detail": [],
+      "id": "643f",
+      "user_id": "1",
+      "order_at": "2024-09-11T02:49:53.430Z",
+      "total_price": "854.00",
+      "status": true,
+      "order_detail": [
+        {
+          "productId": "7",
+          "productName": "Cơ Predator BK Rush Gold Break - Gói thể thao",
+          "unitPrice": "854.00",
+          "quantity": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-4-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=b4d1e215-957d-49fe-91b6-d32e1dc541bd"
+        }
+      ],
       "receive_name": "",
-      "receive_adrees": "",
+      "receive_address": "",
       "receive_phone": "",
-      "created_at": "2022-01-01",
-      "updated_at": "2022-01-01",
-      "id": "520e"
+      "created_at": "2024-09-11T02:49:53.430Z",
+      "updated_at": "2024-09-11T02:49:53.430Z"
+    },
+    {
+      "id": "200072",
+      "user_id": "6c8b",
+      "order_at": "2024-09-11T03:14:52.905Z",
+      "total_price": "7,00",
+      "status": true,
+      "note": "",
+      "order_detail": [
+        {
+          "productId": "12",
+          "productName": "Cơ bida Predator Blak4 2 có khớp nối xuyên tâm",
+          "unitPrice": "2,199.00",
+          "quantity": 2,
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-2-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=3a9984c8-af56-4ad0-bfa6-93f493c85763"
+        },
+        {
+          "productId": "11",
+          "productName": "Cơ bida Predator Blak4 1 có khớp nối xuyên tâm",
+          "unitPrice": "1,999.00",
+          "quantity": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-1-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=aef65dba-1b16-460e-b047-5614cedeb0c0"
+        },
+        {
+          "productId": "13",
+          "productName": "Cơ bida Predator Blak4 3 có khớp nối xuyên tâm",
+          "unitPrice": "2,299.00",
+          "quantity": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-3-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=0d396546-1f91-40f1-b8fc-246720933a0b"
+        }
+      ],
+      "receive_name": "",
+      "receive_address": "",
+      "receive_phone": "",
+      "created_at": "2024-09-11T03:14:52.905Z",
+      "updated_at": "2024-09-11T03:14:52.905Z"
     }
   ],
-  "order_details": [
+  "payments": [
     {
-      "order_detail_id": 5,
-      "name": "",
-      "product_id": 3,
-      "oder_quantity": "",
-      "unit_price": "",
-      "id": "ce5c"
+      "orderId": "d93f",
+      "totalAmount": "3,500.00",
+      "user_id": "1",
+      "id": "5c11",
+      "success": "Thành công"
+    },
+    {
+      "id": "1ea1",
+      "orderId": "643f",
+      "totalAmount": "854.00",
+      "userId": "1",
+      "success": "Thành công"
+    },
+    {
+      "id": "49d9",
+      "orderId": "200072",
+      "totalAmount": "5.00",
+      "userId": "6c8b",
+      "success": "Thành công"
     }
   ]
 }

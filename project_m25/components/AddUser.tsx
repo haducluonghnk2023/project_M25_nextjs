@@ -55,7 +55,6 @@ const AddUser: React.FC = () => {
       await addUser(userData);
 
       setSuccess(true);
-
       setEmail("");
       setUsername("");
       setPassword("");

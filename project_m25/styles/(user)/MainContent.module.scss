@@ -1,0 +1,89 @@
+.product-card {
+    border: 1px solid #e5e7eb; /* Màu viền */
+    border-radius: 10px; /* Bo góc */
+    overflow: hidden;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    transition: box-shadow 0.3s ease-in-out;
+  
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+  
+    .product-image {
+      position: relative;
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+  
+      .new-tag {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background-color: #00c853; /* Màu xanh lá */
+        color: white;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-weight: bold;
+      }
+    }
+  
+    .product-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin: 8px 0;
+    }
+  
+    .product-price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff8c00;
+      margin: 4px 0;
+  
+      &::before {
+        content: "Từ";
+        font-size: 14px;
+        font-weight: normal;
+        color: #999;
+        margin-right: 4px;
+      }
+    }
+  
+    .rating-stars {
+      display: inline-block;
+      margin-bottom: 8px;
+  
+      .star {
+        font-size: 16px;
+        color: #ffd700; /* Màu vàng của sao */
+      }
+    }
+  
+    .add-to-cart {
+      background-color: #ffeb3b; /* Màu vàng */
+      color: black;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.3s ease-in-out;
+  
+      &:hover {
+        background-color: #fdd835; /* Màu vàng đậm khi hover */
+      }
+  
+      .cart-icon {
+        font-size: 16px;
+      }
+    }
+  }
+  

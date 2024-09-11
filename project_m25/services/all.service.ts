@@ -81,6 +81,7 @@ export const fetchProduct = async () => {
   };
 
 
+
 export const deleteProduct = async (id: number) => {
   try {
     const response = await axios.delete(`${API_URL}/products/${id}`);
@@ -117,6 +118,7 @@ export const deleteCategory = async (id: number) => {
     throw error;
   }
 };
+
 
 
 

@@ -3,9 +3,11 @@ import axios from "axios";
 import { useState } from "react";
 import bcrypt from "bcryptjs";
 import { useRouter } from "next/navigation";
+import Link from "next/link"; // Import Link
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
+
   const [formData, setFormData] = useState<any>({
     email: "",
     password: "",
@@ -50,19 +52,27 @@ export default function Login() {
         );
 
         if (user) {
+          if (user.is_locked) {
+            setErrorMessage("Tài khoản của bạn đã bị khóa.");
+            return;
+          }
+
           const passwordMatch = await bcrypt.compare(
             formData.password,
             user.password
           );
 
           if (passwordMatch) {
-            console.log("Đăng nhập thành công:", user);
-            localStorage.setItem("adminToken", "your-token-here");
+            await axios.put(`http://localhost:8080/user/${user.id}`, {
+              ...user,
+              status: true,
+            });
 
+            localStorage.setItem("adminToken", user.id);
             if (formData.email === "admin@gmail.com") {
               route.push("/admin");
             } else {
-              route.push("/");
+              route.push("/user");
             }
           } else {
             setErrorMessage(
@@ -82,6 +92,7 @@ export default function Login() {
       }
     }
   };
+
   return (
     <div>
       <section className="flex flex-col items-center pt-6">
@@ -149,6 +160,12 @@ export default function Login() {
                 Đăng nhập
               </button>
             </form>
+            <p className="text-sm text-center text-gray-500 dark:text-gray-400">
+              Chưa có tài khoản?{" "}
+              <Link href="/sign-up" className="text-blue-600 hover:underline">
+                Đăng ký
+              </Link>
+            </p>
           </div>
         </div>
       </section>

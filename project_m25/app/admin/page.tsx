@@ -55,12 +55,15 @@ export default function AdminLayout() {
 
   const handleMenuClick = (key: string) => {
     if (key === "logout") {
-      router.push("/sign-in"); // Điều hướng về trang chính khi đăng xuất
+      router.push("/sign-in");
     } else {
       setSelectedKey(key);
     }
   };
 
+  const handleHomeClick = () => {
+    router.push("/user");
+  };
   return (
     <Layout className="">
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -162,6 +165,13 @@ export default function AdminLayout() {
               height: 64,
             }}
           />
+          <Button
+            type="primary"
+            onClick={handleHomeClick}
+            style={{ marginLeft: 16 }}
+          >
+            Quay về trang chính
+          </Button>
         </Header>
         <Content
           style={{

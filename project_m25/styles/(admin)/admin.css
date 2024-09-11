@@ -18,3 +18,24 @@
 .ant-menu{
     background-color: rgb(42, 32, 103) !important;
 }
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 12px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .border {
+    border: 1px solid #ddd;
+  }
