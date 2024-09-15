@@ -1,35 +1,65 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import { formatCurrencyUSD } from "@/public";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-const MainContent2: React.FC = () => {
-  const [allProducts, setAllProducts] = useState<Product[]>([]); // Lưu trữ tất cả sản phẩm
-  const [products, setProducts] = useState<Product[]>([]); // Sản phẩm hiển thị trên trang
+const ProductsPage: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [receiveName, setReceiveName] = useState<string>("");
   const [receiveAddress, setReceiveAddress] = useState<string>("");
   const [receivePhone, setReceivePhone] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(5);
   const [sortOrder, setSortOrder] = useState<string>("asc");
-  const [filterCategory, setFilterCategory] =
-    useState<string>("Cơ đánh Predator");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [categories, setCategories] = useState<any[]>([]);
+  const [totalProducts, setTotalProducts] = useState<number>(0);
+
+  const router = useRouter();
 
   useEffect(() => {
+    fetchCategories();
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    filterAndSortProducts();
-  }, [allProducts, searchTerm, currentPage, sortOrder, filterCategory]);
+  const fetchCategories = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:8080/category");
+      setCategories(data);
+    } catch (error) {
+      console.error("Lỗi lấy danh sách category:", error);
+      toast.error("Có lỗi xảy ra khi tải danh sách category.");
+    }
+  };
 
   const fetchProducts = async () => {
     try {
       const { data } = await axios.get("http://localhost:8080/products");
-      setAllProducts(data); // Lưu trữ tất cả sản phẩm
+      const filteredProducts = data
+        .filter((prod: Product) =>
+          prod.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .filter((prod: Product) =>
+          selectedCategory ? prod.category === selectedCategory : true
+        )
+        .sort((a: Product, b: Product) => {
+          const aPrice = parseFloat(a.unit_price.replace(/[^0-9.]/g, ""));
+          const bPrice = parseFloat(b.unit_price.replace(/[^0-9.]/g, ""));
+          return sortOrder === "asc" ? aPrice - bPrice : bPrice - aPrice;
+        });
+
+      setTotalProducts(filteredProducts.length);
+      setProducts(
+        filteredProducts.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+        )
+      );
     } catch (error) {
       console.error("Lỗi lấy data sản phẩm:", error);
     } finally {
@@ -37,27 +67,9 @@ const MainContent2: React.FC = () => {
     }
   };
 
-  const filterAndSortProducts = () => {
-    // Lọc và sắp xếp sản phẩm
-    const filteredProducts = allProducts
-      .filter((prod: Product) => prod.category === filterCategory)
-      .filter((prod: Product) =>
-        prod.product_name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-      .sort((a: Product, b: Product) => {
-        const aPrice = parseFloat(a.unit_price.replace(/[^0-9.]/g, ""));
-        const bPrice = parseFloat(b.unit_price.replace(/[^0-9.]/g, ""));
-        return sortOrder === "asc" ? aPrice - bPrice : bPrice - aPrice;
-      });
-
-    // Cập nhật sản phẩm cho trang hiện tại
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const selectedProducts = filteredProducts.slice(
-      startIndex,
-      startIndex + itemsPerPage
-    );
-    setProducts(selectedProducts);
-  };
+  useEffect(() => {
+    fetchProducts();
+  }, [searchTerm, currentPage, sortOrder, selectedCategory]);
 
   useEffect(() => {
     const savedName = localStorage.getItem("receiveName");
@@ -163,7 +175,6 @@ const MainContent2: React.FC = () => {
         toast.success("Đã thêm sản phẩm vào giỏ hàng!");
       }
 
-      // Lưu thông tin người nhận vào localStorage
       localStorage.setItem("receiveName", receiveName);
       localStorage.setItem("receiveAddress", receiveAddress);
       localStorage.setItem("receivePhone", receivePhone);
@@ -173,10 +184,14 @@ const MainContent2: React.FC = () => {
     }
   };
 
-  const totalPages = Math.ceil(allProducts.length / itemsPerPage);
+  const totalPages = Math.ceil(totalProducts / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const handleProductClick = (id: string) => {
+    router.push(`/products/${id}`);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -190,19 +205,37 @@ const MainContent2: React.FC = () => {
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
-            setCurrentPage(1); // Reset trang khi tìm kiếm
+            setCurrentPage(1);
           }}
           className="border rounded w-full p-2"
         />
         <select
           onChange={(e) => {
             setSortOrder(e.target.value);
-            setCurrentPage(1); // Reset trang khi sắp xếp
+            setCurrentPage(1);
           }}
           className="ml-2 border rounded p-2"
         >
           <option value="asc">Giá: Thấp đến Cao</option>
           <option value="desc">Giá: Cao đến Thấp</option>
+        </select>
+        <select
+          onChange={(e) => {
+            setSelectedCategory(e.target.value);
+            setCurrentPage(1);
+          }}
+          className="ml-2 border rounded p-2"
+        >
+          <option value="">Tất cả danh mục</option>
+          {categories.length > 0 ? (
+            categories.map((category) => (
+              <option key={category.id} value={category.name}>
+                {category.category_name}
+              </option>
+            ))
+          ) : (
+            <option disabled>Không có danh mục nào</option>
+          )}
         </select>
       </div>
       <main className="flex-grow container mx-auto p-4">
@@ -213,8 +246,18 @@ const MainContent2: React.FC = () => {
                 key={product.id}
                 className="relative border rounded-lg overflow-hidden shadow-md p-3 flex flex-col h-full"
               >
-                <Image src={product.image} alt="loi" width={200} height={200} />
-                <h3 className="font-bold">{product.product_name}</h3>
+                <Image
+                  src={product.image}
+                  alt={product.product_name}
+                  width={200}
+                  height={200}
+                />
+                <h3
+                  className="font-bold cursor-pointer"
+                  onClick={() => handleProductClick(product.id)}
+                >
+                  {product.product_name}
+                </h3>
                 <span>
                   From:{" "}
                   {formatCurrencyUSD(
@@ -234,7 +277,6 @@ const MainContent2: React.FC = () => {
           <div>Không có sản phẩm nào phù hợp.</div>
         )}
       </main>
-
       <div className="flex justify-center mt-4">
         {Array.from({ length: totalPages }, (_, index) => (
           <button
@@ -255,4 +297,4 @@ const MainContent2: React.FC = () => {
   );
 };
 
-export default MainContent2;
+export default ProductsPage;

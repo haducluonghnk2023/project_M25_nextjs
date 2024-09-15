@@ -9,17 +9,8 @@ const CartManagement: React.FC = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const userId = localStorage.getItem("adminToken");
-
-      if (!userId) {
-        setLoading(false);
-        return;
-      }
-
       try {
-        const response = await axios.get(
-          `http://localhost:8080/orders?user_id=${userId}`
-        );
+        const response = await axios.get(`http://localhost:8080/orders`);
         console.log(response);
 
         setOrders(response.data);
@@ -35,7 +26,6 @@ const CartManagement: React.FC = () => {
 
   if (loading) return <div>Loading...</div>;
 
-  // Kiểm tra nếu không có sản phẩm nào trong tất cả các đơn hàng
   const hasProducts = orders.some(
     (order) => order.order_detail && order.order_detail.length > 0
   );

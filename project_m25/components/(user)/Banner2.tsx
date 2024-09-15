@@ -11,7 +11,7 @@ const banners = [
     alt: "Banner 2",
   },
   {
-    img: "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F24-Pred-AirRush-gold-desktop-banner-button-2.jpg?alt=media&token=aba9f8f4-35db-492a-87d1-92d3584de6a1",
+    img: "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F24-Pred-Sp2-Adventura-Apitong-Ecommerce-Web-Banner-Desktop.png?alt=media&token=e6c8247a-25b8-41c3-9202-e351f0896fe6",
     alt: "Banner 3",
   },
 ];

@@ -3,12 +3,12 @@ import axios from "axios";
 import { useState } from "react";
 import bcrypt from "bcryptjs";
 import { useRouter } from "next/navigation";
-import Link from "next/link"; // Import Link
+import Link from "next/link";
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [formData, setFormData] = useState<any>({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
@@ -63,15 +63,19 @@ export default function Login() {
           );
 
           if (passwordMatch) {
+            // Cập nhật trạng thái người dùng
             await axios.put(`http://localhost:8080/user/${user.id}`, {
               ...user,
               status: true,
             });
 
             localStorage.setItem("adminToken", user.id);
+
+            // Chỉ chuyển hướng đến trang admin nếu email là của admin
             if (formData.email === "admin@gmail.com") {
               route.push("/admin");
             } else {
+              // Nếu không phải admin, chuyển hướng đến trang người dùng
               route.push("/user");
             }
           } else {

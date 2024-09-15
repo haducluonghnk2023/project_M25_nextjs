@@ -80,7 +80,10 @@ const Account = () => {
 
   const handleChangeOut = () => {
     localStorage.removeItem("adminToken");
-    route.push("/sign-in");
+    localStorage.removeItem("receiveName");
+    localStorage.removeItem("receiveAddress");
+    localStorage.removeItem("receivePhone");
+    route.push("/user");
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -249,7 +252,7 @@ const Account = () => {
                   <li key={order.id} className="border-b py-2">
                     <p className="text-gray-700">Đơn hàng ID: {order.id}</p>
                     <p className="text-gray-600">
-                      Tổng tiền: $ {order.total_price}
+                      Tổng tiền: {order.total_price}
                     </p>
                     <ul className="ml-4 mt-2">
                       {order.order_detail.map((item: any) => (

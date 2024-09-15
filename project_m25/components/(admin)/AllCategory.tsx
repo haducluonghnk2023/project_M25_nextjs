@@ -3,7 +3,7 @@ import {
   fetchCategories,
   updateCategory,
   deleteCategory,
-} from "../services/all.service";
+} from "../../services/all.service";
 
 interface Category {
   id: number;

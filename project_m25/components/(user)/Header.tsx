@@ -61,7 +61,6 @@ const Header: React.FC = () => {
       console.log("Orders data:", response);
       const orders = response.data;
 
-      // Kiểm tra nếu không có đơn hàng
       if (!orders || orders.length === 0) {
         setUniqueProductCount(0);
         return;
@@ -72,17 +71,26 @@ const Header: React.FC = () => {
       orders.forEach((order: any) => {
         if (order.order_detail && Array.isArray(order.order_detail)) {
           order.order_detail.forEach((item: any) => {
-            uniqueProductIds.add(item.productId); // Thêm productId vào Set
+            uniqueProductIds.add(item.productId);
           });
         }
       });
 
-      setUniqueProductCount(uniqueProductIds.size); // Cập nhật số lượng sản phẩm duy nhất
+      setUniqueProductCount(uniqueProductIds.size);
     } catch (error) {
       console.error("Error fetching unique product count:", error);
       setUniqueProductCount(0);
     }
   };
+
+  useEffect(() => {
+    const paymentStatus = localStorage.getItem("paymentStatus");
+    if (paymentStatus !== "success") {
+      setUniqueProductCount(0); // Đặt lại số lượng sản phẩm duy nhất về 0
+      localStorage.removeItem("paymentStatus"); // Xóa paymentStatus khỏi localStorage
+    }
+  }, []);
+
   return (
     <header className="bg-black text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -94,41 +102,26 @@ const Header: React.FC = () => {
         />
         <nav>
           <ul className="flex space-x-6">
-            {/* Navbar items */}
             <li>
-              <a href="#" className="hover:underline">
-                CUES
-              </a>
+              <a href="#">CUES</a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                TABLES
-              </a>
+              <a href="#">TABLES</a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                SHAFTS
-              </a>
+              <a href="#">SHAFTS</a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                CASES
-              </a>
+              <a href="#">CASES</a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                ACCESSORIES
-              </a>
+              <a href="#">ACCESSORIES</a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                APPAREL
-              </a>
+              <a href="#">APPAREL</a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                PRO TEAM
-              </a>
+              <a href="#">PRO TEAM</a>
             </li>
           </ul>
         </nav>
@@ -144,14 +137,14 @@ const Header: React.FC = () => {
           ) : (
             <button onClick={handleChangeSignIn}>SIGN-IN</button>
           )}
-          {!isLoggedIn && ( // Ẩn nút "CREATE AN ACCOUNT" nếu đã đăng nhập
+          {!isLoggedIn && (
             <button onClick={handleChangeSignUp}>CREATE AN ACCOUNT</button>
           )}
-          <button className="relative">
+          <button className="relative" onClick={handleCart}>
             <span className="absolute top-0 right-0 bg-red-600 text-white rounded-full px-1 text-xs">
               {uniqueProductCount}
             </span>
-            <ShoppingCart onClick={handleCart} />
+            <ShoppingCart />
           </button>
         </div>
       </div>

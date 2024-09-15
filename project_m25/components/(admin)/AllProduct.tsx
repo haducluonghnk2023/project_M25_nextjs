@@ -2,7 +2,7 @@ import {
   fetchProduct,
   deleteProduct,
   updateProduct,
-} from "../services/all.service";
+} from "../../services/all.service";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaAccusoft, FaCartPlus, FaUsers } from "react-icons/fa6";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
@@ -11,14 +11,14 @@ import { LiaListAltSolid } from "react-icons/lia";
 import { useRouter } from "next/navigation";
 import "../../styles/(admin)/admin.css";
 
-import Dashboard from "../../components/DashBoard";
-import AllUser from "../../components/AllUser";
-import AllProduct from "../../components/AllProduct";
-import AllCategory from "../../components/AllCategory";
-import CartManagement from "../../components/CartManagement";
-import AddUser from "@/components/AddUser";
-import AddProduct from "@/components/AddProduct";
-import AddCategory from "@/components/AddCategory";
+import Dashboard from "../../components/(admin)/DashBoard";
+import AllUser from "../../components/(admin)/AllUser";
+import AllProduct from "../../components/(admin)/AllProduct";
+import AllCategory from "../../components/(admin)/AllCategory";
+import CartManagement from "../../components/(admin)/CartManagement";
+import AddUser from "@/components/(admin)/AddUser";
+import AddProduct from "@/components/(admin)/AddProduct";
+import AddCategory from "@/components/(admin)/AddCategory";
 
 const { Header, Sider, Content } = Layout;
 
@@ -29,6 +29,12 @@ export default function AdminLayout() {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   const router = useRouter();
+  useEffect(() => {
+    const token: any = localStorage.getItem("adminToken");
+    if (token != 1) {
+      router.push("/not-found");
+    }
+  }, [router]);
 
   const renderContent = () => {
     switch (selectedKey) {
@@ -55,6 +61,7 @@ export default function AdminLayout() {
 
   const handleMenuClick = (key: string) => {
     if (key === "logout") {
+      localStorage.removeItem("adminToken");
       router.push("/sign-in");
     } else {
       setSelectedKey(key);
@@ -143,7 +150,7 @@ export default function AdminLayout() {
             {
               key: "cart",
               icon: <FaCartPlus />,
-              label: "Quản lí giỏ hàng",
+              label: "Quản lí đơn hàng",
             },
             {
               key: "logout",

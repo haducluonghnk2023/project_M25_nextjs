@@ -1,14 +1,14 @@
 {
   "user": [
     {
-      "id": "fc6d",
+      "id": "1",
       "username": "duc luong",
-      "email": "haducluongdz@gmail.com",
+      "email": "admin@gmail.com",
       "fullname": "hạ đức lương",
       "phone": "0392096054",
       "addrees": "Phú Thọ",
-      "password": "$2a$10$LTAp2OHPIO6TmBwke9TPEO9EakS0w0MnBkXFok8uWjUJV3vteqOCS",
-      "role": "user",
+      "password": "$2a$10$zSZArgc8Y08DHR4NVPLqBO7mXxX3BU15xznDRSVrtFnB4H/0f60gC",
+      "role": "admin",
       "status": true
     },
     {
@@ -30,6 +30,17 @@
       "phone": "0123456789",
       "addrees": "Thanh Hóa",
       "password": "$2a$10$MsWnjTG92T7fOGJa31VE7eKCaqqV9poxkbHKo24EcK5sI79.D8PhO",
+      "role": "user",
+      "status": true
+    },
+    {
+      "id": "7247",
+      "username": "dluong",
+      "email": "haducluongdz@gmail.com",
+      "fullname": "ha duc luong",
+      "phone": "0392096054",
+      "addrees": "Phú Thọ",
+      "password": "$2a$10$5InGLU7oe3I7FENkK60q2OWYRKIVmILbvqgEUecOX91z8CyVwHNvK",
       "role": "user",
       "status": true
     }
@@ -181,40 +192,69 @@
   ],
   "orders": [
     {
-      "id": "643f",
+      "id": "459006",
       "user_id": "1",
-      "order_at": "2024-09-11T02:49:53.430Z",
-      "total_price": "854.00",
+      "order_at": "2024-09-12T12:02:26.225Z",
+      "total_price": "2791.00",
       "status": true,
+      "note": "",
       "order_detail": [
+        {
+          "productId": "6",
+          "productName": "Predator Second Skin Black & Gold Billiard Glove - 30 Anniversary Edition",
+          "unitPrice": "29.00",
+          "quantity": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F24-pred-glove-lg-bridge-1000x1000.jpg?alt=media&token=52619f6c-f185-4b76-868d-6ba1491eaad5"
+        },
         {
           "productId": "7",
           "productName": "Cơ Predator BK Rush Gold Break - Gói thể thao",
           "unitPrice": "854.00",
           "quantity": 1,
-          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-4-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=b4d1e215-957d-49fe-91b6-d32e1dc541bd"
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F23-pred-bkrush-gold-1000x1000--w.jpg?alt=media&token=c28eaca4-0cc2-44ac-87e6-1ecf8208ab8d"
+        },
+        {
+          "productId": "8",
+          "productName": "Cơ Predator Air Rush Gold Jump - Không quấn",
+          "unitPrice": "590.00",
+          "quantity": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-airrush-gold-jump-cue-nowrap-3segment-1000x1000-lowres.jpg?alt=media&token=ed533a33-5a4c-4c56-a12e-76ad92c2a7d6"
+        },
+        {
+          "productId": "9",
+          "productName": "Cơ Predator Air Rush Gold Jump - Bọc thể thao",
+          "unitPrice": "659.00",
+          "quantity": 2,
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-5-pool-cue-thumb-1000x1000_1_1.jpg?alt=media&token=9b872ce9-a0d9-425b-87a4-96c935e78e36"
         }
       ],
-      "receive_name": "",
-      "receive_address": "",
-      "receive_phone": "",
-      "created_at": "2024-09-11T02:49:53.430Z",
-      "updated_at": "2024-09-11T02:49:53.430Z"
+      "receive_name": "hthu",
+      "receive_address": "hà nội",
+      "receive_phone": "0234567543",
+      "created_at": "2024-09-12T12:02:26.225Z",
+      "updated_at": "2024-09-12T12:02:26.225Z"
     },
     {
-      "id": "200072",
-      "user_id": "6c8b",
-      "order_at": "2024-09-11T03:14:52.905Z",
-      "total_price": "$17,592.00",
+      "id": "675958",
+      "user_id": "7247",
+      "order_at": "2024-09-14T18:17:40.804Z",
+      "total_price": "$3,237.00",
       "status": true,
       "note": "",
       "order_detail": [
         {
-          "productId": "12",
-          "productName": "Cơ bida Predator Blak4 2 có khớp nối xuyên tâm",
-          "unitPrice": "2,199.00",
-          "quantity": 5,
-          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-2-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=3a9984c8-af56-4ad0-bfa6-93f493c85763"
+          "productId": "6",
+          "productName": "Predator Second Skin Black & Gold Billiard Glove - 30 Anniversary Edition",
+          "unitPrice": "29.00",
+          "quantity": 2,
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2F24-pred-glove-lg-bridge-1000x1000.jpg?alt=media&token=52619f6c-f185-4b76-868d-6ba1491eaad5"
+        },
+        {
+          "productId": "8",
+          "productName": "Cơ Predator Air Rush Gold Jump - Không quấn",
+          "unitPrice": "590.00",
+          "quantity": 2,
+          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-airrush-gold-jump-cue-nowrap-3segment-1000x1000-lowres.jpg?alt=media&token=ed533a33-5a4c-4c56-a12e-76ad92c2a7d6"
         },
         {
           "productId": "11",
@@ -222,49 +262,13 @@
           "unitPrice": "1,999.00",
           "quantity": 1,
           "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-1-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=aef65dba-1b16-460e-b047-5614cedeb0c0"
-        },
-        {
-          "productId": "13",
-          "productName": "Cơ bida Predator Blak4 3 có khớp nối xuyên tâm",
-          "unitPrice": "2,299.00",
-          "quantity": 2,
-          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-3-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=0d396546-1f91-40f1-b8fc-246720933a0b"
         }
       ],
       "receive_name": "",
       "receive_address": "",
       "receive_phone": "",
-      "created_at": "2024-09-11T03:14:52.905Z",
-      "updated_at": "2024-09-11T03:14:52.905Z"
-    },
-    {
-      "id": "557498",
-      "user_id": "2321",
-      "order_at": "2024-09-11T04:56:59.626Z",
-      "total_price": "$4,498.00",
-      "status": true,
-      "note": "",
-      "order_detail": [
-        {
-          "productId": "12",
-          "productName": "Cơ bida Predator Blak4 2 có khớp nối xuyên tâm",
-          "unitPrice": "2,199.00",
-          "quantity": 1,
-          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-2-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=3a9984c8-af56-4ad0-bfa6-93f493c85763"
-        },
-        {
-          "productId": "13",
-          "productName": "Cơ bida Predator Blak4 3 có khớp nối xuyên tâm",
-          "unitPrice": "2,299.00",
-          "quantity": 1,
-          "image": "https://firebasestorage.googleapis.com/v0/b/m25-project-e7165.appspot.com/o/images%2Fpredator-blak4-3-pool-cue-thumb-1000x1000_1.jpg?alt=media&token=0d396546-1f91-40f1-b8fc-246720933a0b"
-        }
-      ],
-      "receive_name": "phuc",
-      "receive_address": "ha noi",
-      "receive_phone": "123456789",
-      "created_at": "2024-09-11T04:56:59.626Z",
-      "updated_at": "2024-09-11T04:56:59.626Z"
+      "created_at": "2024-09-14T18:17:40.804Z",
+      "updated_at": "2024-09-14T18:17:40.804Z"
     }
   ],
   "payments": [
@@ -283,17 +287,17 @@
       "success": "Thành công"
     },
     {
-      "id": "49d9",
-      "orderId": "200072",
-      "totalAmount": "5.00",
-      "userId": "6c8b",
+      "id": "b25c",
+      "orderId": "675958",
+      "totalAmount": "$2,574.00",
+      "userId": "7247",
       "success": "Thành công"
     },
     {
-      "id": "1785",
-      "orderId": "200072",
-      "totalAmount": "7,00",
-      "userId": "6c8b",
+      "id": "b9d4",
+      "orderId": "675958",
+      "totalAmount": "$3,783.00",
+      "userId": "7247",
       "success": "Thành công"
     }
   ]

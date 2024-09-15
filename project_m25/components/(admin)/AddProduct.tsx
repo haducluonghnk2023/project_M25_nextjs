@@ -1,6 +1,6 @@
 import { addProduct } from "@/services/all.service";
 import React, { useState } from "react";
-import styles from "../styles/(admin)/AddProduct.module.scss";
+import styles from "../../styles/(admin)/AddProduct.module.scss";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 import { storage } from "@/config/firebase";
@@ -17,6 +17,7 @@ const AddProduct: React.FC = () => {
     date: "",
     image: "",
   });
+  const [message, setMessage] = useState<string>(""); // State để lưu thông báo
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -29,12 +30,31 @@ const AddProduct: React.FC = () => {
     });
   };
 
+  const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const valueImage: any = e.target.files?.[0];
+    setImage(valueImage);
+  };
+
+  const uploadImage = async () => {
+    if (!image) return ""; // Nếu không có hình ảnh, trả về chuỗi rỗng
+
+    const imageRef = ref(storage, `images/${image.name}`);
+    const snapshot = await uploadBytes(imageRef, image);
+    const url = await getDownloadURL(snapshot.ref);
+    return url; // Trả về URL hình ảnh
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await addProduct(productData);
-      alert("Sản phẩm đã được thêm thành công!");
+      const imageUrl = await uploadImage(); // Đợi upload hình ảnh
+      const newProductData = { ...productData, image: imageUrl }; // Thêm URL hình ảnh vào dữ liệu sản phẩm
+      await addProduct(newProductData); // Gọi hàm thêm sản phẩm với dữ liệu đã cập nhật
 
+      // Thiết lập thông báo thành công
+      setMessage("Sản phẩm đã được thêm thành công!");
+
+      // Reset form
       setProductData({
         product_name: "",
         decription: "",
@@ -45,28 +65,11 @@ const AddProduct: React.FC = () => {
         date: "",
         image: "",
       });
+      setImage(null); // Reset hình ảnh
     } catch (error) {
-      alert("Đã xảy ra lỗi khi thêm sản phẩm.");
+      console.error("Đã xảy ra lỗi khi thêm sản phẩm:", error);
+      setMessage("Đã xảy ra lỗi khi thêm sản phẩm."); // Thiết lập thông báo lỗi
     }
-  };
-
-  const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let valueImage: any = e.target.files?.[0];
-    console.log("111111111", valueImage);
-    setImage(valueImage);
-  };
-
-  const uploadImage = () => {
-    const imageRef = ref(storage, `images/${image}`);
-    uploadBytes(imageRef, image).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        console.log(1111, url);
-        const product = {
-          image: url,
-        };
-        axios.post(" http://localhost:8080/products", product);
-      });
-    });
   };
 
   return (
@@ -130,15 +133,12 @@ const AddProduct: React.FC = () => {
           onChange={handleChange}
           required
         />
-        <input
-          type="file"
-          // value={productData.image}
-          onChange={handleChangeImage}
-        />
-        <button type="submit" onClick={uploadImage}>
-          Thêm sản phẩm
-        </button>
+        <input type="file" onChange={handleChangeImage} />
+        <button type="submit">Thêm sản phẩm</button>
       </form>
+      {message && (
+        <p className="mt-4 text-green-600">{message}</p> // Hiển thị thông báo
+      )}
     </div>
   );
 };

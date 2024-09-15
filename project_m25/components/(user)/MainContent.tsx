@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-
-type Product = {
-  id: string;
-  image: string;
-  product_name: string;
-  unit_price: string;
-  sizes: string[];
-  options: string[];
-  stock: string;
-  new?: boolean;
-  category: string;
-};
+import { Toaster, toast } from "react-hot-toast";
+import { formatCurrencyUSD } from "@/public";
+import Image from "next/image";
 
 const MainContent: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -46,7 +36,25 @@ const MainContent: React.FC = () => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    // Tải thông tin người nhận từ localStorage
+    const savedName = localStorage.getItem("receiveName");
+    const savedAddress = localStorage.getItem("receiveAddress");
+    const savedPhone = localStorage.getItem("receivePhone");
+
+    if (savedName) setReceiveName(savedName);
+    if (savedAddress) setReceiveAddress(savedAddress);
+    if (savedPhone) setReceivePhone(savedPhone);
+  }, []);
+
   const handleAddToCart = (product: Product) => {
+    const userId = localStorage.getItem("adminToken");
+    if (!userId) {
+      toast.error("Bạn cần đăng nhập để mua hàng.");
+      handleCloseForm();
+      return;
+    }
+
     setSelectedProduct(product);
     setShowForm(true);
   };
@@ -54,35 +62,34 @@ const MainContent: React.FC = () => {
   const handleCloseForm = () => {
     setShowForm(false);
     setSelectedProduct(null);
-    setReceiveName(""); // Reset thông tin
-    setReceiveAddress(""); // Reset thông tin
-    setReceivePhone(""); // Reset thông tin
   };
 
   const handleConfirmAddToCart = async () => {
     if (!selectedProduct) return;
 
     const userId = localStorage.getItem("adminToken");
-
     if (!userId) {
       toast.error("Bạn cần đăng nhập để mua hàng.");
       handleCloseForm();
       return;
     }
 
-    const orderData = {
+    const cleanPrice = selectedProduct.unit_price.replace(/[^0-9.]/g, "");
+    const unitPrice = parseFloat(cleanPrice);
+
+    if (isNaN(unitPrice)) {
+      toast.error("Giá sản phẩm không hợp lệ.");
+      return;
+    }
+
+    let orderData: Order = {
+      id: Math.ceil(Math.random() * 999999).toString(),
       user_id: userId,
       order_at: new Date().toISOString(),
-      total_price: selectedProduct.unit_price,
+      total_price: "0.00",
       status: true,
-      order_detail: [
-        {
-          productId: selectedProduct.id,
-          productName: selectedProduct.product_name,
-          unitPrice: selectedProduct.unit_price,
-          quantity: 1,
-        },
-      ],
+      note: "",
+      order_detail: [],
       receive_name: receiveName,
       receive_address: receiveAddress,
       receive_phone: receivePhone,
@@ -91,13 +98,83 @@ const MainContent: React.FC = () => {
     };
 
     try {
-      await axios.post("http://localhost:8080/orders", orderData);
-      toast.success("Đã thêm vào giỏ hàng thành công!");
-      handleCloseForm();
+      // Kiểm tra đơn hàng của người dùng
+      const response = await axios.get(
+        `http://localhost:8080/orders?user_id=${userId}`
+      );
+      const existingOrder = response.data[0];
+
+      if (existingOrder) {
+        // Nếu đơn hàng tồn tại, kiểm tra sản phẩm đã có trong giỏ hàng chưa
+        const existingItemIndex = existingOrder.order_detail.findIndex(
+          (item: OrderDetail) => item.productId === selectedProduct.id
+        );
+
+        if (existingItemIndex >= 0) {
+          // Nếu sản phẩm đã có, tăng số lượng
+          existingOrder.order_detail[existingItemIndex].quantity += 1;
+          toast.success("Sản phẩm đã được cập nhật trong giỏ hàng!");
+        } else {
+          // Nếu sản phẩm chưa có, thêm vào giỏ hàng
+          const newCartItem: OrderDetail = {
+            productId: selectedProduct.id,
+            productName: selectedProduct.product_name,
+            unitPrice: selectedProduct.unit_price,
+            quantity: 1,
+            image: selectedProduct.image,
+          };
+          existingOrder.order_detail.push(newCartItem);
+          toast.success("Đã thêm sản phẩm vào giỏ hàng!");
+        }
+
+        // Cập nhật tổng giá của đơn hàng
+        existingOrder.total_price = existingOrder.order_detail
+          .reduce(
+            (total: number, item: OrderDetail) =>
+              total +
+              parseFloat(item.unitPrice.replace(/[^0-9.]/g, "")) *
+                item.quantity,
+            0
+          )
+          .toFixed(2);
+
+        existingOrder.total_price = formatCurrencyUSD(
+          parseFloat(existingOrder.total_price)
+        );
+
+        // Cập nhật đơn hàng
+        await axios.put(
+          `http://localhost:8080/orders/${existingOrder.id}`,
+          existingOrder
+        );
+      } else {
+        // Nếu không có đơn hàng, tạo mới
+        const newCartItem: OrderDetail = {
+          productId: selectedProduct.id,
+          productName: selectedProduct.product_name,
+          unitPrice: selectedProduct.unit_price,
+          quantity: 1,
+          image: selectedProduct.image,
+        };
+        orderData.order_detail.push(newCartItem);
+
+        orderData.total_price = formatCurrencyUSD(unitPrice);
+
+        // Gửi yêu cầu tạo đơn hàng mới
+        await axios.post("http://localhost:8080/orders", orderData);
+        toast.success("Đã thêm sản phẩm vào giỏ hàng!");
+      }
+
+      
+      localStorage.setItem("receiveName", receiveName);
+      localStorage.setItem("receiveAddress", receiveAddress);
+      localStorage.setItem("receivePhone", receivePhone);
     } catch (error) {
-      console.error("Error adding to cart:", error);
-      toast.error("Có lỗi xảy ra khi thêm vào giỏ hàng.");
+      console.error("Error fetching or updating order:", error);
+      toast.error("Có lỗi xảy ra khi xử lý đơn hàng.");
     }
+
+    handleCloseForm();
   };
 
   if (loading) return <div>Loading...</div>;
@@ -112,13 +189,19 @@ const MainContent: React.FC = () => {
                 key={product.id}
                 className="relative border rounded-lg overflow-hidden shadow-md p-3 flex flex-col h-full"
               >
-                <img
+                <Image
                   src={product.image}
-                  alt={product.product_name}
-                  className="w-full h-40 object-cover"
-                />
+                  alt="loi"
+                  width={200}
+                  height={200}
+                ></Image>
                 <h3 className="font-bold">{product.product_name}</h3>
-                <span>From: ${product.unit_price}</span>
+                <span>
+                  From:{" "}
+                  {formatCurrencyUSD(
+                    parseFloat(product.unit_price.replace(/[^0-9.]/g, ""))
+                  )}
+                </span>
                 <button
                   onClick={() => handleAddToCart(product)}
                   className="bg-yellow-500 text-black mt-auto rounded"
@@ -137,12 +220,19 @@ const MainContent: React.FC = () => {
           <div className="bg-white p-6 rounded shadow-lg relative w-96">
             <h2 className="text-lg font-bold mb-4">Thêm vào giỏ hàng</h2>
             <p>{selectedProduct.product_name}</p>
-            <p>Giá: ${selectedProduct.unit_price}</p>
-            <img
+            <p>
+              Giá:{" "}
+              {formatCurrencyUSD(
+                parseFloat(selectedProduct.unit_price.replace(/[^0-9.]/g, ""))
+              )}
+            </p>
+
+            <Image
               src={selectedProduct.image}
-              alt={selectedProduct.product_name}
-              className="w-full h-40 object-cover mb-4"
-            />
+              alt="loi"
+              width={200}
+              height={200}
+            ></Image>
             <div className="mt-4">
               <label className="block mb-1">Tên người nhận:</label>
               <input
@@ -187,7 +277,7 @@ const MainContent: React.FC = () => {
           </div>
         </div>
       )}
-      <ToastContainer />
+      <Toaster /> {/* Thêm Toaster vào đây */}
     </div>
   );
 };

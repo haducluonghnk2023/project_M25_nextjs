@@ -19,27 +19,23 @@ type Order = {
   total_price: string;
   status: boolean;
   order_detail: OrderDetail[];
-  receive_name: string;
-  receive_address: string;
-  receive_phone: string;
-  created_at: string;
-  updated_at: string;
 };
 
 const Cart: React.FC = () => {
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
   const [paymentLoading, setPaymentLoading] = useState(false);
-  const [paymentSuccessful, setPaymentSuccessful] = useState(false);
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [paymentInfo, setPaymentInfo] = useState({
+    name: "",
+    address: "",
+    phone: "",
+  });
   const router = useRouter();
 
   useEffect(() => {
     const fetchCartItems = async () => {
       const userId = localStorage.getItem("adminToken");
-      if (!userId) {
-        toast.error("Bạn cần đăng nhập để xem giỏ hàng.");
-        return;
-      }
 
       try {
         const response = await axios.get(
@@ -49,7 +45,6 @@ const Cart: React.FC = () => {
 
         if (existingOrder) {
           setOrder(existingOrder);
-          await checkPaymentStatus(existingOrder.id); // Check payment status after fetching order
         } else {
           setOrder(null);
         }
@@ -58,21 +53,6 @@ const Cart: React.FC = () => {
         toast.error("Có lỗi xảy ra khi tải giỏ hàng.");
       } finally {
         setLoading(false);
-      }
-    };
-
-    const checkPaymentStatus = async (orderId: string) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/payments?orderId=${orderId}`
-        );
-        if (response.data.success) {
-          setPaymentSuccessful(true);
-          setOrder(null);
-        }
-      } catch (error) {
-        console.error("Error checking payment status:", error);
-        toast.error("Có lỗi xảy ra khi kiểm tra trạng thái thanh toán.");
       }
     };
 
@@ -138,11 +118,13 @@ const Cart: React.FC = () => {
     }
   };
 
-  const handlePayment = async () => {
+  const handlePayment = () => {
     if (!order) return;
+    setShowPaymentForm(true);
+  };
 
-    const confirmPayment = window.confirm("Bạn có chắc chắn muốn thanh toán?");
-    if (!confirmPayment) return;
+  const handleConfirmPayment = async () => {
+    if (!order) return;
 
     setPaymentLoading(true);
     try {
@@ -157,11 +139,16 @@ const Cart: React.FC = () => {
         await axios.put(`http://localhost:8080/orders/${order.id}`, {
           ...order,
           status: true,
+          receive_name: paymentInfo.name,
+          receive_address: paymentInfo.address,
+          receive_phone: paymentInfo.phone,
         });
 
         toast.success("Thanh toán thành công!");
+
+        // Đặt order thành null để hiển thị giỏ hàng trống
         setOrder(null);
-        setPaymentSuccessful(true);
+        setShowPaymentForm(false);
         setTimeout(() => {
           router.push("/user");
         }, 1500);
@@ -181,9 +168,7 @@ const Cart: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Giỏ hàng của bạn</h1>
-      {paymentSuccessful ? (
-        <div>Giỏ hàng của bạn đã được thanh toán thành công!</div>
-      ) : order && order.order_detail.length > 0 ? (
+      {order && order.order_detail.length > 0 ? (
         <table className="w-full border-collapse border border-gray-300">
           <thead>
             <tr>
@@ -237,7 +222,7 @@ const Cart: React.FC = () => {
       )}
       <div className="mt-4">
         <h2 className="text-lg font-bold">
-          Tổng tiền: ${order ? order.total_price : "0.00"}
+          Tổng tiền: {order ? order.total_price : "0.00"}
         </h2>
       </div>
       <button
@@ -245,8 +230,54 @@ const Cart: React.FC = () => {
         className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
         disabled={paymentLoading || !order || order.order_detail.length === 0}
       >
-        {paymentLoading ? "Đang thanh toán..." : "Thanh toán"}
+        Thanh toán
       </button>
+
+      {showPaymentForm && (
+        <div className="mt-4 p-4 border border-gray-300 rounded">
+          <h2 className="text-lg font-bold mb-2">Thông tin thanh toán</h2>
+          <div>
+            <label className="block mb-1">Tên:</label>
+            <input
+              type="text"
+              value={paymentInfo.name}
+              onChange={(e) =>
+                setPaymentInfo({ ...paymentInfo, name: e.target.value })
+              }
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div className="mt-2">
+            <label className="block mb-1">Địa chỉ:</label>
+            <input
+              type="text"
+              value={paymentInfo.address}
+              onChange={(e) =>
+                setPaymentInfo({ ...paymentInfo, address: e.target.value })
+              }
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div className="mt-2">
+            <label className="block mb-1">Số điện thoại:</label>
+            <input
+              type="text"
+              value={paymentInfo.phone}
+              onChange={(e) =>
+                setPaymentInfo({ ...paymentInfo, phone: e.target.value })
+              }
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <button
+            onClick={handleConfirmPayment}
+            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+            disabled={paymentLoading}
+          >
+            {paymentLoading ? "Đang thanh toán..." : "Xác nhận thanh toán"}
+          </button>
+        </div>
+      )}
       <ToastContainer />
     </div>
   );
